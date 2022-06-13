@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +17,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('test', function(){
+    return response()->json(['status' => 1, 'value' => 'Test']);
+});
+
+Route::group(['middleware' => 'auth:api'], function(){
+    Route::get('get-users', [UsersController::class, 'getUsers']);
+    Route::post('set-user', [UsersController::class, 'setUser']);
 });

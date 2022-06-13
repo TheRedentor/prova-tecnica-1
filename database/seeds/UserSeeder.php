@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
         $user->name = "Pere";
         $user->email = "pere@pere";
         $user->password = Hash::make('1234');
-        //$user->api_token = Str::random(60);
+        $user->api_token = Str::random(60);
         $user->is_admin = true;
         $user->save();
 
