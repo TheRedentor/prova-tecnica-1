@@ -40,6 +40,8 @@ Route::middleware(['auth.back'])->group(function(){
     Route::post('evento/creado', [EventController::class, 'store']);
 
     Route::post('evento/calendario', [EventController::class, 'calendario']);
+
+    Route::get('events/eliminar/{id}', [EventController::class,'delete']);
 });
 
 Route::group(['middleware' => 'can:admin'], function(){
@@ -76,8 +78,6 @@ Route::group(['middleware' => 'can:admin'], function(){
     Route::get('tarifas/editar/{id}', [TarifasController::class,'edit']);
     
     Route::post('tarifas/editado/{id}', [TarifasController::class,'update']);
-
-    Route::get('events/eliminar/{id}', [EventController::class,'delete']);
 });
 
 Route::get('/', [LoginController::class,'index']);
