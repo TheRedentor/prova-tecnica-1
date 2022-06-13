@@ -14,7 +14,7 @@ class CallendarController extends Controller
         $month_number = substr($month, -2);
         $data = $this->calendar_month($month);
         $mes = $data['month'];
-        // obtener mes en espanol
+        
         $mespanish = $this->spanish_month($mes);
         $mes = $data['month'];
         $events = Event::all();
@@ -70,7 +70,7 @@ class CallendarController extends Controller
           $month_number = '12';
         }
         $mes = $data['month'];
-        // obtener mes en espanol
+        
         $mespanish = $this->spanish_month($mes);
         $mes = $data['month'];
         return view("calendar",[

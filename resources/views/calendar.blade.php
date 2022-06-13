@@ -74,7 +74,7 @@
               {{ $dayweek['dia'] }}
               @foreach($events as $event)
               @if($event->fecha == $data['year'].'-'.$month_number.'-'.$dayweek['dia'])
-              {{ $event->producto }} x{{ $event->numero }} {{ $event->precio }}€
+              {{ $event->producto }} x{{ $event->numero }} {{ $event->precio }}€ <a href="/events/eliminar/{{ $event->id }}">X</a>
               @endif
               @endforeach
             </div>

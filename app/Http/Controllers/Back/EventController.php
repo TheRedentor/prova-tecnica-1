@@ -44,4 +44,15 @@ class EventController extends Controller
 
         return redirect()->action([CallendarController::class, 'index']);
     }
+
+    public function delete($id){
+        try{
+            $event = Event::findOrFail($id);
+            $event->delete();
+        }
+        catch(\Exception $e){
+            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+        }
+        return redirect()->action([CallendarController::class, 'index']);
+    }
 }

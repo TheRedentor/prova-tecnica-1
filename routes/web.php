@@ -76,6 +76,8 @@ Route::group(['middleware' => 'can:admin'], function(){
     Route::get('tarifas/editar/{id}', [TarifasController::class,'edit']);
     
     Route::post('tarifas/editado/{id}', [TarifasController::class,'update']);
+
+    Route::get('events/eliminar/{id}', [EventController::class,'delete']);
 });
 
 Route::get('/', [LoginController::class,'index']);
