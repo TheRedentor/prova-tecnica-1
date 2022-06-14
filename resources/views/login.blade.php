@@ -2,7 +2,7 @@
 @section('title', 'Iniciar sesión')
 @section('content')
     <body>
-        <form method="post" action="/logged">
+        <form method="post" action="{{ route('logged') }}">
         {{ csrf_field() }}
             <div class="form-group">
                 <label for="exampleInputEmail1">Email</label>

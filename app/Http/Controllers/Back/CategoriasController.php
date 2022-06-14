@@ -22,7 +22,7 @@ class CategoriasController extends Controller
         return view('crear-categoria');
     }
 
-    public function store(Request $request){
+    public function store(CategoriasRequest $request){
         try{
             $name = $request->input('name');
             $description = $request->input('description');
@@ -42,13 +42,11 @@ class CategoriasController extends Controller
     public function edit($id){
         try{
             $categoria = Categoria::findOrFail($id);
-            $name = $categoria->name;
-            $description = $categoria->description;
         }
         catch(\Exception $e){
-            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+            return redirect()->back()->withErrors(['msg' => 'La categoria no existe']);
         }
-        return view('editar-categoria', compact('categoria', 'id', 'name', 'description'));
+        return view('editar-categoria', compact('categoria', 'id'));
     }
 
     public function update($id, CategoriasRequest $request){
@@ -97,7 +95,7 @@ class CategoriasController extends Controller
             $categoria->delete();
         }
         catch(\Exception $e){
-            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+            return redirect()->back()->withErrors(['msg' => 'La categoria no existe']);
         }
         return redirect()->action([CategoriasController::class, 'index']);
     }

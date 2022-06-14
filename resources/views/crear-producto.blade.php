@@ -2,7 +2,7 @@
 @section('title', 'Crear producto')
 @section('content')
     <body>
-        <form method="post" action="/productos/creado">
+        <form method="post" action="{{ route('producto-creado') }}">
         {{ csrf_field() }}
             <div class="form-group">
                 <label for="name">Nombre</label>
@@ -18,23 +18,33 @@
             </div>
             <div class="form-group">
                 <label for="categoria">Categoria</label>
-                <input name='categoria' type="text" class="form-control" id="categoria" placeholder="Entra el nombre de la categoria">
+                <select name='categoria' class="form-control" id="categoria" placeholder="Entra el nombre de la categoria">
+                    <option value=""></option>
+                    @foreach($categorias as $categoria)
+                    <option value="{{ $categoria->name }}">{{ $categoria->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <label for="subcategoria">Subcategoria</label>
-                <input name='subcategoria' type="text" class="form-control" id="subcategoria" placeholder="Entra el nombre de la subcategoria">
+                <select name='subcategoria' class="form-control" id="subcategoria" placeholder="Entra el nombre de la subcategoria">
+                    <option value=""></option>
+                    @foreach($subcategorias as $subcategoria)
+                    <option value="{{ $subcategoria->name }}">{{ $subcategoria->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <label for="tarifa_start_date">Fecha de inicio de tarifa</label>
-                <input name='tarifa_start_date' type="text" class="form-control" id="tarifa_start_date" placeholder="Entra la fecha de inicio de la tarifa">
+                <input name='tarifa_start_date' type="date" class="form-control" id="tarifa_start_date" placeholder="Entra la fecha de inicio de la tarifa">
             </div>
             <div class="form-group">
                 <label for="tarifa_end_date">Fecha de finalización de tarifa</label>
-                <input name='tarifa_end_date' type="text" class="form-control" id="tarifa_end_date" placeholder="Entra la fecha de finalización de la tarifa">
+                <input name='tarifa_end_date' type="date" class="form-control" id="tarifa_end_date" placeholder="Entra la fecha de finalización de la tarifa">
             </div>
             <div class="form-group">
                 <label for="tarifa_price">Precio de la tarifa</label>
-                <input name='tarifa_price' type="text" class="form-control" id="tarifa_price" placeholder="Entra el precio de la tarifa">
+                <input name='tarifa_price' type="number" step="0.01" class="form-control" id="tarifa_price" placeholder="Entra el precio de la tarifa">
             </div>
             <button type="submit" class="btn btn-primary">Crear</button>
         </form>

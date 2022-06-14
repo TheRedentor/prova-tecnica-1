@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Http\Requests\ProductsRequest;
+use App\Http\Requests\EditProductsRequest;
 use App\Models\Tarifa;
 use App\Models\CategoriaProduct;
 use App\Models\Categoria;
@@ -29,10 +30,12 @@ class ProductosController extends Controller
     }
 
     public function create(){
-        return view('crear-producto');
+        $categorias = Categoria::all();
+        $subcategorias = Subcategoria::all();
+        return view('crear-producto', compact('categorias', 'subcategorias'));
     }
 
-    public function store(Request $request){
+    public function store(ProductsRequest $request){
         $name = $request->input('name');
         $description = $request->input('description');
         $image = $request->input('image');
@@ -74,21 +77,18 @@ class ProductosController extends Controller
     public function edit($id){
         try{
             $product = Product::findOrFail($id);
-            $name = $product->name;
-            $description = $product->description;
-            $image = $product->image;
+            $categorias = Categoria::all();
+            $subcategorias = Subcategoria::all();
             try{
                 $categoria_product = CategoriaProduct::where('product_id', $product->id)->first();
-                $categoria_id = $categoria_product->categoria_id;
-                $categoria = Categoria::where('id', $categoria_id)->first();
+                $categoria = Categoria::where('id', $categoria_product->categoria_id)->first();
                 $categoria_name = $categoria->name;
             }
             catch(\Exception $e){
                 $categoria_name = null;
             }
             try{
-                $subcategoria_id = $product->subcategoria_id;
-                $subcategoria = Subcategoria::where('id', $subcategoria_id)->first();
+                $subcategoria = Subcategoria::where('id', $product->subcategoria_id)->first();
                 $subcategoria_name = $subcategoria->name;
             }
             catch(\Exception $e){
@@ -96,12 +96,12 @@ class ProductosController extends Controller
             }
         }
         catch(\Exception $e){
-            return redirect()->back()->withErrors(['msg' => 'Excepción capturada: ',  $e->getMessage(), "\n"]);
+            return redirect()->back()->withErrors(['msg' => 'El producto no existe']);
         }
-        return view('editar-producto', compact('product', 'id', 'name', 'description', 'image', 'categoria_name', 'subcategoria_name'));
+        return view('editar-producto', compact('product', 'id', 'categoria_name', 'subcategoria_name', 'categorias', 'subcategorias'));
     }
 
-    public function update($id, ProductsRequest $request){
+    public function update($id, EditProductsRequest $request){
         try{
             $product = Product::findOrFail($id);
             $categoria_product = CategoriaProduct::where('product_id', $product->id)->first();
@@ -146,7 +146,7 @@ class ProductosController extends Controller
             $product->delete();
         }
         catch(\Exception $e){
-            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+            return redirect()->back()->withErrors(['msg' => 'El producto no existe']);
         }
         return redirect()->action([ProductosController::class, 'index']);
     }
@@ -188,7 +188,7 @@ class ProductosController extends Controller
         catch(\Exception $e){
             return redirect()->back()->withErrors(['msg' => 'Excepción capturada: ',  $e->getMessage(), "\n"]);
         }
-        $pdf = \PDF::loadView('producto', compact('product', 'name', 'description', 'image', 'tarifas', 'categoria_products', 'categorias', 'subcategorias', 'fecha'));
+        $pdf = \PDF::loadView('exports.producto_pdf', compact('product', 'name', 'description', 'image', 'tarifas', 'categoria_products', 'categorias', 'subcategorias', 'fecha'));
         return $pdf->download('product.pdf');
     }
 

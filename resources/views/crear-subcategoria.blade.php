@@ -2,7 +2,7 @@
 @section('title', 'Crear subcategoria')
 @section('content')
     <body>
-        <form method="post" action="/subcategorias/creado/{{$id}}">
+        <form method="post" action="{{ route('subcategoria-creado', [$id]) }}">
         {{ csrf_field() }}
             <div class="form-group">
                 <label for="name">Nombre</label>

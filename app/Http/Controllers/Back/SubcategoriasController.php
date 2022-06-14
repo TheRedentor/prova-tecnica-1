@@ -8,6 +8,8 @@ use App\Models\Subcategoria;
 use App\Models\Categoria;
 use App\Models\Product;
 
+use App\Http\Requests\SubcategoriasRequest;
+
 class SubcategoriasController extends Controller
 {
     public function create($id){
@@ -16,12 +18,12 @@ class SubcategoriasController extends Controller
             $categoria_id = $categoria->id;
         }
         catch(\Exception $e){
-            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+            return redirect()->back()->withErrors(['msg' => 'La categoria no existe']);
         }
         return view('crear-subcategoria', compact('id'));
     }
 
-    public function store($id, Request $request){
+    public function store($id, SubcategoriasRequest $request){
         try{
             $name = $request->input('name');
             $description = $request->input('description');
@@ -50,7 +52,7 @@ class SubcategoriasController extends Controller
             $subcategoria->delete();
         }
         catch(\Exception $e){
-            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+            return redirect()->back()->withErrors(['msg' => 'La subcategoria no existe']);
         }
         return redirect()->action([CategoriasController::class, 'index']);
     }

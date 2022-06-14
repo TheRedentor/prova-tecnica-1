@@ -9,13 +9,16 @@ use App\Models\Event;
 use App\Models\Product;
 use App\Models\Tarifa;
 
+use App\Http\Requests\EventsRequest;
+
 class EventController extends Controller
 {
     public function create(){
-        return view("crear-evento");
+        $productos = Product::all();
+        return view("crear-evento", compact('productos'));
     }
 
-    public function store(Request $request){
+    public function store(EventsRequest $request){
         $fecha = $request->input('fecha');
         $producto = $request->input('producto');
         $numero = $request->input('numero');
@@ -51,7 +54,7 @@ class EventController extends Controller
             $event->delete();
         }
         catch(\Exception $e){
-            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+            return redirect()->back()->withErrors(['msg' => 'El evento no existe']);
         }
         return redirect()->action([CallendarController::class, 'index']);
     }

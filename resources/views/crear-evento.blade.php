@@ -2,15 +2,20 @@
 @section('title', 'Crear evento')
 @section('content')
     <body>
-        <form method="post" action="/evento/creado">
+        <form method="post" action="{{ route('evento-creado') }}">
         {{ csrf_field() }}
             <div class="form-group">
                 <label for="fecha">Fecha</label>
-                <input name='fecha' type="text" class="form-control" id="fecha" placeholder="Entra una fecha">
+                <input name='fecha' type="date" class="form-control" id="fecha" placeholder="Entra una fecha">
             </div>
             <div class="form-group">
                 <label for="producto">Producto</label>
-                <input name='producto' type="text" class="form-control" id="producto" placeholder="Entra un producto">
+                <select name='producto' class="form-control" id="producto">
+                    <option value=""></option>
+                    @foreach($productos as $producto)
+                    <option value="{{ $producto->name }}">{{ $producto->name }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <label for="numero">Número</label>

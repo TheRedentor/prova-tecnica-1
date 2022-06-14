@@ -1,5 +1,5 @@
 @extends('main')
-@section('title', '{{ $product->name }}')
+@section('title', $product->name)
 @section('content')
 <body>
     <h2>{{ $product->name }}</h2>
@@ -27,7 +27,7 @@
         @endif
     @endforeach
     @can('admin')
-    <a href="/producto/exportar/{{ $product->id }}" class="btn btn-primary">Descargar PDF</a>
+    <a href="{{ route('pdf', [$product->id]) }}" class="btn btn-primary">Descargar PDF</a>
     @endcan
 </body>
 @endsection

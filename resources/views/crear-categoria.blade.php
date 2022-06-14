@@ -2,7 +2,7 @@
 @section('title', 'Crear categoria')
 @section('content')
     <body>
-        <form method="post" action="/categorias/creado">
+        <form method="post" action="{{ route('categoria-creado') }}">
         {{ csrf_field() }}
             <div class="form-group">
                 <label for="name">Nombre</label>

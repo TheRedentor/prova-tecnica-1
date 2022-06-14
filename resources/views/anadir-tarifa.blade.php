@@ -2,19 +2,19 @@
 @section('title', 'Añadir tarifa')
 @section('content')
     <body>
-        <form method="post" action="/tarifas/creado/{{$id}}">
+        <form method="post" action="{{ route('tarifa-creado', [$id]) }}">
         {{ csrf_field() }}
             <div class="form-group">
-                <label for="start_date">Fecha de inicio de tarifa</label>
-                <input name='start_date' type="text" class="form-control" id="start_date" placeholder="Entra la fecha de inicio de la tarifa">
+                <label for="start_date">Fecha de inicio de tarifa:</label>
+                <input name='start_date' type="date" class="form-control" id="start_date" placeholder="Entra la fecha de inicio de la tarifa">
             </div>
             <div class="form-group">
-                <label for="end_date">Fecha de finalización de tarifa</label>
-                <input name='end_date' type="text" class="form-control" id="end_date" placeholder="Entra la fecha de finalización de la tarifa">
+                <label for="end_date">Fecha de finalización de tarifa:</label>
+                <input name='end_date' type="date" class="form-control" id="end_date" placeholder="Entra la fecha de finalización de la tarifa">
             </div>
             <div class="form-group">
-                <label for="price">Precio de la tarifa</label>
-                <input name='price' type="text" class="form-control" id="price" placeholder="Entra el precio de la tarifa">
+                <label for="price">Precio de la tarifa:</label>
+                <input name='price' type="number" step="0.01" class="form-control" id="price" placeholder="Entra el precio de la tarifa">
             </div>
             <button type="submit" class="btn btn-primary">Crear</button>
         </form>

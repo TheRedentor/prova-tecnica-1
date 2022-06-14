@@ -38,7 +38,7 @@
     <div class="container">
       <div style="height:50px"></div>
       <p class="lead">
-      <h3>Calendario <a href="/evento/nuevo" class="btn btn-primary">Crear evento</a></h3>
+      <h3>Calendario <a href="{{ route('evento-nuevo') }}" class="btn btn-primary">Crear evento</a></h3>
 
       <hr>
 
@@ -74,7 +74,7 @@
               {{ $dayweek['dia'] }}
               @foreach($events as $event)
               @if($event->fecha == $data['year'].'-'.$month_number.'-'.$dayweek['dia'])
-              {{ $event->producto }} x{{ $event->numero }} {{ $event->precio }}€ <a href="/events/eliminar/{{ $event->id }}">X</a>
+              {{ $event->producto }} x{{ $event->numero }} {{ $event->precio }}€ <a href="{{ route('evento-eliminar', [$event->id]) }}">X</a>
               @endif
               @endforeach
             </div>

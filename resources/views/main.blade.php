@@ -47,19 +47,19 @@
           <div class="sidebar-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link" href="{{ action([CategoriasController::class, 'index']) }}">
+                <a class="nav-link" href="{{ route('categorias') }}">
                   <span data-feather="home"></span>
                   Categorias
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ action([ProductosController::class, 'index']) }}">
+                <a class="nav-link" href="{{ route('productos') }}">
                   <span data-feather="shopping-cart"></span>
                   Productos
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ action([CallendarController::class, 'index']) }}">
+                <a class="nav-link" href="{{ route('calendario') }}">
                   <span data-feather="calendar"></span>
                   Calendario
                 </a>

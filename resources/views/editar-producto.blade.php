@@ -2,27 +2,43 @@
 @section('title', 'Editar producto')
 @section('content')
     <body>
-        <form method="post" action="/productos/editado/{{$id}}">
+        <form method="post" action="{{ route('producto-editado', [$id]) }}">
         {{ csrf_field() }}
             <div class="form-group">
                 <label for="name">Nombre</label>
-                <input name='name' type="text" class="form-control" id="name" placeholder="Entra un nombre" value={{$name}}>
+                <input name='name' type="text" class="form-control" id="name" placeholder="Entra un nombre" value={{$product->name}}>
             </div>
             <div class="form-group">
                 <label for="description">Descripción</label>
-                <input name='description' type="text" class="form-control" id="description" placeholder="Entra una descripción" value="{{$description}}">
+                <input name='description' type="text" class="form-control" id="description" placeholder="Entra una descripción" value="{{$product->description}}">
             </div>
             <div class="form-group">
                 <label for="image">Imagen</label>
-                <input name='image' type="text" class="form-control" id="image" placeholder="Entra un link de imagen" value={{$image}}>
+                <input name='image' type="text" class="form-control" id="image" placeholder="Entra un link de imagen" value={{$product->image}}>
             </div>
             <div class="form-group">
                 <label for="categoria">Categoria</label>
-                <input name='categoria' type="text" class="form-control" id="categoria" placeholder="Entra el nombre de la categoria" value={{$categoria_name}}>
+                <select name='categoria' class="form-control" id="categoria" placeholder="Entra el nombre de la categoria">
+                    @foreach($categorias as $categoria)
+                        @if($categoria->name == $categoria_name)
+                        <option value="{{ $categoria->name }}" selected>{{ $categoria->name }}</option>
+                        @else
+                        <option value="{{ $categoria->name }}">{{ $categoria->name }}</option>
+                        @endif
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <label for="subcategoria">Subcategoria</label>
-                <input name='subcategoria' type="text" class="form-control" id="subcategoria" placeholder="Entra el nombre de la subcategoria" value={{$subcategoria_name}}>
+                <select name='subcategoria' class="form-control" id="subcategoria" placeholder="Entra el nombre de la subcategoria">
+                    @foreach($subcategorias as $subcategoria)
+                        @if($subcategoria->name == $subcategoria_name)
+                        <option value="{{ $subcategoria->name }}" selected>{{ $subcategoria->name }}</option>
+                        @else
+                        <option value="{{ $subcategoria->name }}">{{ $subcategoria->name }}</option>
+                        @endif
+                    @endforeach
+                </select>
             </div>
             <button type="submit" class="btn btn-primary">Editar</button>
         </form>

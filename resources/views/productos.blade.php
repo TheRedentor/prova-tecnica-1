@@ -3,8 +3,8 @@
 @section('content')
     <body>
         @can('admin')
-        <a href="/productos/nuevo/" class="btn btn-primary">Nuevo producto</a>
-        <a href="/productos/descargar/" class="btn btn-primary">Descargar XLS</a>
+        <a href="{{ route('producto-nuevo') }}" class="btn btn-primary">Nuevo producto</a>
+        <a href="{{ route('excel') }}" class="btn btn-primary">Descargar XLS</a>
         @endcan
         <div class="grid-container-element">
         @foreach ($products as $product)
@@ -33,12 +33,11 @@
                     @endif
                 @endif
             @endforeach
-            <a href="/producto/{{ $product->id }}" class="btn btn-primary">Ver producto</a>
+            <a href="{{ route('producto', [$product->id]) }}" class="btn btn-primary">Ver producto</a>
             @can('admin')
-            <a href="/productos/editar/{{ $product->id }}" class="btn btn-primary">Editar</a>
-            <a href="/productos/eliminar/{{ $product->id }}" class="btn btn-primary">Eliminar</a>
-            <a href="/tarifas/nuevo/{{ $product->id }}" class="btn btn-primary">Añadir tarifa</a>
-            <a href="/tarifas/editar/{{ $product->id }}" class="btn btn-primary">Editar tarifas</a>
+            <a href="{{ route('producto-editar', [$product->id]) }}" class="btn btn-primary">Editar</a>
+            <a href="{{ route('producto-eliminar', [$product->id]) }}" class="btn btn-primary">Eliminar</a>
+            <a href="{{ route('tarifas', [$product->id]) }}" class="btn btn-primary">Editar tarifas</a>
             @endcan
             </div>
         @endforeach

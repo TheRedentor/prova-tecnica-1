@@ -9,10 +9,10 @@
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
             @auth
-                <a class="nav-link" href="{{ action([LoginController::class,'logout']) }}">{{ auth()->user()->name }} - Log out</a>
+                <a class="nav-link" href="{{ route('logout') }}">{{ auth()->user()->name }} - Log out</a>
             @endauth
             @guest
-                <a class="nav-link" href="{{ action([LoginController::class,'index']) }}">Sign in</a>
+                <a class="nav-link" href="{{ route('login') }}">Sign in</a>
             @endguest
         </li>
     </ul>

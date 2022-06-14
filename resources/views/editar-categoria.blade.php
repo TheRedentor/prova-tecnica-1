@@ -2,15 +2,15 @@
 @section('title', 'Editar categoria')
 @section('content')
     <body>
-        <form method="post" action="/categorias/editado/{{$id}}">
+        <form method="post" action="{{ route('categoria-editado', [$id]) }}">
         {{ csrf_field() }}
             <div class="form-group">
                 <label for="name">Nombre</label>
-                <input name='name' type="text" class="form-control" id="name" placeholder="Entra un nombre" value={{$name}}>
+                <input name='name' type="text" class="form-control" id="name" placeholder="Entra un nombre" value={{$categoria->name}}>
             </div>
             <div class="form-group">
                 <label for="description">Descripción</label>
-                <input name='description' type="text" class="form-control" id="description" placeholder="Entra una descripción" value="{{$description}}">
+                <input name='description' type="text" class="form-control" id="description" placeholder="Entra una descripción" value="{{$categoria->description}}">
             </div>
             <button type="submit" class="btn btn-primary">Editar</button>
         </form>

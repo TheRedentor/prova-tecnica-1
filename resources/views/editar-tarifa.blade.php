@@ -1,24 +1,22 @@
 @extends('main')
-@section('title', 'Añadir tarifa')
+@section('title', 'Editar tarifa')
 @section('content')
     <body>
-        <form method="post" action="/tarifas/editado/{{$id}}">
+        <form method="post" action="{{ route('tarifa-editado', [$tarifa->id]) }}">
         {{ csrf_field() }}
-            @foreach($tarifas as $tarifa)
-                <div class="form-group">
-                    <label for="start_date">Fecha de inicio de tarifa</label>
-                    <input name='start_date{{$i}}' type="text" class="form-control" id="start_date" placeholder="Entra la fecha de inicio de la tarifa" value={{$tarifa->start_date}}>
-                </div>
-                <div class="form-group">
-                    <label for="end_date">Fecha de finalización de tarifa</label>
-                    <input name='end_date{{$i}}' type="text" class="form-control" id="end_date" placeholder="Entra la fecha de finalización de la tarifa" value={{$tarifa->end_date}}>
-                </div>
-                <div class="form-group">
-                    <label for="price">Precio de la tarifa</label>
-                    <input name='price{{$i}}' type="text" class="form-control" id="price" placeholder="Entra el precio de la tarifa" value={{$tarifa->price}}>
-                </div>
-                <?php $i++; ?>
-            @endforeach
+            <h3>Tarifa</h3>
+            <div class="form-group">
+                <label for="start_date">Fecha de inicio de tarifa</label>
+                <input name='start_date' type="date" class="form-control" id="start_date" placeholder="Entra la fecha de inicio de la tarifa" value={{$tarifa->start_date}}>
+            </div>
+            <div class="form-group">
+                <label for="end_date">Fecha de finalización de tarifa</label>
+                <input name='end_date' type="date" class="form-control" id="end_date" placeholder="Entra la fecha de finalización de la tarifa" value={{$tarifa->end_date}}>
+            </div>
+            <div class="form-group">
+                <label for="price">Precio de la tarifa</label>
+                <input name='price' type="number" step="0.01" class="form-control" id="price" placeholder="Entra el precio de la tarifa" value={{$tarifa->price}}>
+            </div>
             <button type="submit" class="btn btn-primary">Editar</button>
         </form>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
