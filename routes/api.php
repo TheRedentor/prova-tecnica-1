@@ -32,8 +32,13 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('get-users', [UsersController::class, 'getUsers']);
     Route::post('set-user', [UsersController::class, 'setUser']);
     Route::get('get-productos', [ProductosController::class, 'getProductos']);
+    Route::post('set-producto', [ProductosController::class, 'setProducto']);
     Route::get('get-categorias', [CategoriasController::class, 'getCategorias']);
+    Route::post('set-categoria', [CategoriasController::class, 'setCategoria']);
     Route::get('get-subcategorias', [SubcategoriasController::class, 'getSubcategorias']);
+    Route::post('set-subcategoria', [SubcategoriasController::class, 'setSubcategoria']);
     Route::get('get-tarifas', [TarifasController::class, 'getTarifas']);
+    Route::post('set-tarifa', [TarifasController::class, 'setTarifa']);
     Route::get('get-events', [EventController::class, 'getEvents']);
+    Route::post('set-event', [EventController::class, 'setEvent']);
 });
