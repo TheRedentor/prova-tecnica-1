@@ -10,11 +10,13 @@ use App\Models\Subcategoria;
 use App\Models\CategoriaProduct;
 use App\Models\Product;
 
+use Illuminate\Support\Facades\DB;
+
 class CategoriasController extends Controller
 {
     public function index(){
-        $categorias = Categoria::all();
-        $subcategorias = Subcategoria::all();
+        $categorias = DB::table('categorias')->get();
+        $subcategorias = DB::table('subcategorias')->get();
         return view('categorias', compact('categorias', 'subcategorias'));
     }
 
@@ -66,11 +68,11 @@ class CategoriasController extends Controller
     public function delete($id){
         try{
             $categoria = Categoria::findOrFail($id);
-            $subcategorias = Subcategoria::where('categoria_id', $categoria->id)->get();
-            $categoria_products = CategoriaProduct::where('categoria_id', $categoria->id)->get();
+            $subcategorias = DB::table('subcategorias')->where('categoria_id', $categoria->id)->get();
+            $categoria_products = DB::table('categoria_product')->where('categoria_id', $categoria->id)->get();
             $categoria_product = $categoria_products->first();
             try{
-                $products = Product::where('id', $categoria_product->product_id)->get();
+                $products = DB::table('products')->where('id', $categoria_product->product_id)->get();
             }
             catch(\Exception $e){
                 $products = null;

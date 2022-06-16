@@ -8,13 +8,14 @@ use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\Product;
 use App\Models\Tarifa;
-
 use App\Http\Requests\EventsRequest;
+
+use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller
 {
     public function create(){
-        $productos = Product::all();
+        $productos = DB::table('products')->get();
         return view("crear-evento", compact('productos'));
     }
 
@@ -22,11 +23,11 @@ class EventController extends Controller
         $fecha = $request->input('fecha');
         $producto = $request->input('producto');
         $numero = $request->input('numero');
-        $productInfo = Product::where('name', $producto)->first();
+        $productInfo = DB::table('products')->where('name', $producto)->first();
         if(!isset($productInfo)){
             return redirect()->back()->withErrors(['msg' => 'No existe ese producto']);
         }
-        $tarifas = Tarifa::where('product_id', $productInfo->id)->get();
+        $tarifas = DB::table('tarifas')->where('product_id', $productInfo->id)->get();
         foreach($tarifas as $tarifa){
             if($tarifa->product_id == $productInfo->id){
                 if($tarifa->start_date <= $fecha && $tarifa->end_date >= $fecha){

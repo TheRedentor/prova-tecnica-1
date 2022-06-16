@@ -19,19 +19,25 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ProductosController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
+        if($request->isMethod('post')){
+            $products = DB::table('products')->where('name', 'like', $request->input('name').'%')->get();
+        }
+        else{
+            $products = DB::table('products')->get();
+        }
         $fecha = date('Y-m-d');
-        $products = Product::all();
-        $tarifas = Tarifa::all();
-        $categoria_products = CategoriaProduct::all();
-        $categorias = Categoria::all();
-        $subcategorias = Subcategoria::all();
+        $tarifas = DB::table('tarifas')->get();
+        $categoria_products = DB::table('categoria_product')->get();
+        $categorias = DB::table('categorias')->get();
+        $subcategorias = DB::table('subcategorias')->get();
+        
         return view('productos', compact('products', 'tarifas', 'categoria_products', 'categorias', 'subcategorias', 'fecha'));
     }
 
     public function create(){
-        $categorias = Categoria::all();
-        $subcategorias = Subcategoria::all();
+        $categorias = DB::table('categorias')->get();
+        $subcategorias = DB::table('subcategorias')->get();
         return view('crear-producto', compact('categorias', 'subcategorias'));
     }
 
@@ -40,9 +46,9 @@ class ProductosController extends Controller
         $description = $request->input('description');
         $image = $request->input('image');
         $categoria_name = $request->input('categoria');
-        $categoria = Categoria::where('name', $categoria_name)->first();
+        $categoria = DB::table('categorias')->where('name', $categoria_name)->first();
         $subcategoria_name = $request->input('subcategoria');
-        $subcategoria = Subcategoria::where('name', $subcategoria_name)->first();
+        $subcategoria = DB::table('subcategorias')->where('name', $subcategoria_name)->first();
         $tarifa_start_date = $request->input('tarifa_start_date');
         $tarifa_end_date = $request->input('tarifa_end_date');
         $tarifa_price = $request->input('tarifa_price');
@@ -77,18 +83,18 @@ class ProductosController extends Controller
     public function edit($id){
         try{
             $product = Product::findOrFail($id);
-            $categorias = Categoria::all();
-            $subcategorias = Subcategoria::all();
+            $categorias = DB::table('categorias')->get();
+            $subcategorias = DB::table('subcategorias')->get();
             try{
-                $categoria_product = CategoriaProduct::where('product_id', $product->id)->first();
-                $categoria = Categoria::where('id', $categoria_product->categoria_id)->first();
+                $categoria_product = DB::table('categoria_product')->where('product_id', $product->id)->first();
+                $categoria = DB::table('categorias')->where('id', $categoria_product->categoria_id)->first();
                 $categoria_name = $categoria->name;
             }
             catch(\Exception $e){
                 $categoria_name = null;
             }
             try{
-                $subcategoria = Subcategoria::where('id', $product->subcategoria_id)->first();
+                $subcategoria = DB::table('subcategorias')->where('id', $product->subcategoria_id)->first();
                 $subcategoria_name = $subcategoria->name;
             }
             catch(\Exception $e){
@@ -104,12 +110,12 @@ class ProductosController extends Controller
     public function update($id, EditProductsRequest $request){
         try{
             $product = Product::findOrFail($id);
-            $categoria_product = CategoriaProduct::where('product_id', $product->id)->first();
-            $tarifa = Tarifa::where('product_id', $product->id)->first();
+            $categoria_product = DB::table('categoria_product')->where('product_id', $product->id)->first();
+            $tarifa = DB::table('tarifas')->where('product_id', $product->id)->first();
             $categoria_name = $request->input('categoria');
-            $categoria = Categoria::where('name', $categoria_name)->first();
+            $categoria = DB::table('categorias')->where('name', $categoria_name)->first();
             $subcategoria_name = $request->input('subcategoria');
-            $subcategoria = Subcategoria::where('name', $subcategoria_name)->first();
+            $subcategoria = DB::table('subcategorias')->where('name', $subcategoria_name)->first();
 
             $product->update([
                 'name' => $request->input('name'),
@@ -139,7 +145,7 @@ class ProductosController extends Controller
     public function delete($id){
         try{
             $product = Product::findOrFail($id);
-            $tarifas = Tarifa::where('product_id', $product->id)->get();
+            $tarifas = DB::table('tarifas')->where('product_id', $product->id)->get();
             foreach($tarifas as $tarifa){
                 $tarifa->delete();
             }
@@ -162,10 +168,10 @@ class ProductosController extends Controller
             $name = $product->name;
             $description = $product->description;
             $image = $product->image;
-            $tarifas = Tarifa::where('product_id', $product->id)->get();
-            $categoria_products = CategoriaProduct::all();
-            $categorias = Categoria::all();
-            $subcategorias = Subcategoria::all();
+            $tarifas = DB::table('tarifas')->where('product_id', $product->id)->get();
+            $categoria_products = DB::table('categoria_product')->all();
+            $categorias = DB::table('categorias')->get();
+            $subcategorias = DB::table('subcategorias')->get();
         }
         catch(\Exception $e){
             return redirect()->back()->withErrors(['msg' => 'Excepción capturada: ',  $e->getMessage(), "\n"]);
@@ -180,10 +186,10 @@ class ProductosController extends Controller
             $name = $product->name;
             $description = $product->description;
             $image = $product->image;
-            $tarifas = Tarifa::all();
-            $categoria_products = CategoriaProduct::all();
-            $categorias = Categoria::all();
-            $subcategorias = Subcategoria::all();
+            $tarifas = DB::table('tarifas')->get();
+            $categoria_products = DB::table('categoria_product')->get();
+            $categorias = DB::table('categorias')->get();
+            $subcategorias = DB::table('subcategorias')->get();
         }
         catch(\Exception $e){
             return redirect()->back()->withErrors(['msg' => 'Excepción capturada: ',  $e->getMessage(), "\n"]);

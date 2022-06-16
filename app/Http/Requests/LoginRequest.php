@@ -24,15 +24,16 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required',
+            'email' => 'required|email',
             'password' => 'required',
         ];
     }
 
     public function messages(){
         return [
-            'email.required' => 'El camp email no està omplert',
-            'password.required' => 'El camp contrasenya no està omplert',
+            'email.required' => 'El campo email está vacio',
+            'password.required' => 'El campo contraseña está vacio',
+            'email.email' => 'El campo email no es un email válido'
         ];
     }
 }

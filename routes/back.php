@@ -22,8 +22,10 @@ use App\Http\Controllers\Back\TarifasController;
 
 Route::middleware(['auth.back'])->group(function(){
     Route::get('categorias', [CategoriasController::class,'index'])->name('categorias');
-
+    
     Route::get('productos', [ProductosController::class,'index'])->name('productos');
+
+    Route::post('productos', [ProductosController::class,'index'])->name('productos');
 
     Route::get('productos/descargar', [ProductosController::class,'export'])->name('excel');
 

@@ -29,9 +29,9 @@ class ProductsRequest extends FormRequest
             'image' => 'required',
             'categoria' => 'required',
             'subcategoria' => 'required',
-            'tarifa_start_date' => 'required',
-            'tarifa_end_date' => 'required',
-            'tarifa_price' => 'required',
+            'tarifa_start_date' => 'required|date',
+            'tarifa_end_date' => 'required|date',
+            'tarifa_price' => 'required|numeric',
         ];
     }
 
@@ -45,6 +45,9 @@ class ProductsRequest extends FormRequest
             'tarifa_start_date.required' => 'El campo fecha de inicio de tarifa está vacio',
             'tarifa_end_date.required' => 'El campo fecha de finalización de tarifa está vacio',
             'tarifa_price.required' => 'El campo precio de la tarifa está vacio',
+            'tarifa_start_date.date' => 'El campo fecha de inicio de tarifa no es una fecha',
+            'tarifa_end_date.date' => 'El campo fecha de finañización de tarifa no es una fecha',
+            'tarifa_price.numeric' => 'El campo precio de la tarifa no es un número',
         ];
     }
 }

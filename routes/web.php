@@ -25,6 +25,8 @@ Route::middleware(['auth.back'])->group(function(){
 
     Route::get('productos', [ProductosController::class,'index'])->name('productos');
 
+    Route::post('productos', [ProductosController::class,'index'])->name('productos-post');
+
     Route::get('productos/descargar', [ProductosController::class,'export'])->name('excel');
 
     Route::get('producto/{id}', [ProductosController::class,'show_product'])->name('producto');

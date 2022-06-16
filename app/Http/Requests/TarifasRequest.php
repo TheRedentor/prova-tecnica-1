@@ -24,9 +24,9 @@ class TarifasRequest extends FormRequest
     public function rules()
     {
         return [
-            'start_date' => 'required',
-            'end_date' => 'required',
-            'price' => 'required',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+            'price' => 'required|numeric',
         ];
     }
 
@@ -35,6 +35,9 @@ class TarifasRequest extends FormRequest
             'start_date.required' => 'El campo fecha de inicio de tarifa está vacio',
             'end_date.required' => 'El campo fecha de finalización de tarifa está vacio',
             'price.required' => 'El campo precio está vacio',
+            'start_date.date' => 'El campo fecha de inicio de tarifa es una fecha',
+            'end_date.date' => 'El campo fecha de finalización de tarifa no es una fecha',
+            'price.numeric' => 'El campo precio no es un número',
         ];
     }
 }

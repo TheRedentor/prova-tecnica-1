@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Event;
 
+use Illuminate\Support\Facades\DB;
+
 class CallendarController extends Controller
 {
     public function index(){
@@ -17,7 +19,7 @@ class CallendarController extends Controller
         
         $mespanish = $this->spanish_month($mes);
         $mes = $data['month'];
-        $events = Event::all();
+        $events = DB::table('events')->get();
         
         return view("calendar",[
           'data' => $data,
@@ -30,7 +32,7 @@ class CallendarController extends Controller
     }
 
     public function index_month($month){
-        $events = Event::all();
+        $events = DB::table('events')->get();
         $data = $this->calendar_month($month);
         $month_number = substr($month, -3);
         if($month_number == "Jan"){
@@ -83,7 +85,7 @@ class CallendarController extends Controller
     }
 
     public static function calendar_month($month){
-        $events = Event::all();
+        $events = DB::table('events')->get();
         //$mes = date("Y-m");
         $mes = $month;
         //sacar el ultimo de dia del mes

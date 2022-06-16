@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Tarifa;
 
+use Illuminate\Support\Facades\DB;
+
 use App\Http\Requests\TarifasRequest;
 
 class TarifasController extends Controller
@@ -14,7 +16,8 @@ class TarifasController extends Controller
     public function index($id){
         try{
             $product = Product::findOrFail($id);
-            $tarifas = Tarifa::where('product_id', $product->id)->get();
+            $tarifas = DB::table('tarifas')->where('product_id', $product->id)->get();
+            //$tarifas = DB::table('tarifas')->join('products', 'products.id', '=', 'tarifas.product_id')->where('products.id', $product->id)->get();
         }
         catch(\Exception $e){
             return redirect()->back()->withErrors(['msg' => 'El producto no existe']);
@@ -66,7 +69,7 @@ class TarifasController extends Controller
     public function update($id, TarifasRequest $request){
         try{
             $tarifa = Tarifa::findOrFail($id);
-            $product = Product::where('id', $tarifa->product_id)->first();
+            $product = DB::table('products')->where('id', $tarifa->product_id)->first();
             $id = $product->id;
             $tarifa->update([
                 'start_date' => $request->input('start_date'),

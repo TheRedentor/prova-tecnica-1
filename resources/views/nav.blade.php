@@ -5,7 +5,11 @@
 
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Prova tècnica</a>
-    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+    <form class="form-control form-control-dark w-100" method="post" action="{{ route('productos-post') }}">
+        {{ csrf_field() }}
+        <input name='name' type="text" placeholder="Buscar productos..." aria-label="Search">
+        <button type="submit">Buscar</button>
+    </form>
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
             @auth

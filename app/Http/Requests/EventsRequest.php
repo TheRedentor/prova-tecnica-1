@@ -24,9 +24,9 @@ class EventsRequest extends FormRequest
     public function rules()
     {
         return [
-            'fecha' => 'required',
+            'fecha' => 'required|date',
             'producto' => 'required',
-            'numero' => 'required',
+            'numero' => 'required|integer',
         ];
     }
 
@@ -35,6 +35,8 @@ class EventsRequest extends FormRequest
             'fecha.required' => 'El campo fecha está vacio',
             'producto.required' => 'El campo producto está vacio',
             'numero.required' => 'El campo número está vacio',
+            'fecha.date' => 'El campo fecha no es una fecha',
+            'numero.integer' => 'El campo número no es un número'
         ];
     }
 }

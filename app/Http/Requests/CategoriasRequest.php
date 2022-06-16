@@ -24,15 +24,17 @@ class CategoriasRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'description' => 'required'
+            'name' => 'required|string',
+            'description' => 'required|string'
         ];
     }
 
     public function messages(){
         return [
             'name.required' => 'El campo nombre está vacio',
-            'description.required' => 'El campo descripción está vacio'
+            'description.required' => 'El campo descripción está vacio',
+            'name.string' => 'El campo nombre no es un texto',
+            'description.string' => 'El campo descripción no es un texto',
         ];
     }
 }
