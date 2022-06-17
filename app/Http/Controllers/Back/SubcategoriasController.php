@@ -46,7 +46,7 @@ class SubcategoriasController extends Controller
     public function delete($id){
         try{
             $subcategoria = Subcategoria::findOrFail($id);
-            $products = DB::table('products')->where('subcategoria_id', $subcategoria->id)->get();
+            $products = Product::where('subcategoria_id', $subcategoria->id)->get();
             foreach($products as $product){
                 $product->subcategoria_id = null;
                 $product->save();

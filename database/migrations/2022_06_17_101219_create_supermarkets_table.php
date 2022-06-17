@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddTokenUser extends Migration
+class CreateSupermarketsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class AddTokenUser extends Migration
      */
     public function up()
     {
-        Schema::table('users', function(Blueprint $table){
-            $table->string('api_token')->nullable();
+        Schema::create('supermarkets', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamps();
         });
     }
 
@@ -25,6 +27,6 @@ class AddTokenUser extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('supermarkets');
     }
 }

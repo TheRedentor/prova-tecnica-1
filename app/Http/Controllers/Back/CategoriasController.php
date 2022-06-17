@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\DB;
 class CategoriasController extends Controller
 {
     public function index(){
-        $categorias = DB::table('categorias')->get();
-        $subcategorias = DB::table('subcategorias')->get();
+        $categorias = DB::table('categorias')->get(['id', 'name', 'description']);
+        $subcategorias = DB::table('subcategorias')->get(['id', 'name', 'categoria_id']);
         return view('categorias', compact('categorias', 'subcategorias'));
     }
 
@@ -68,11 +68,11 @@ class CategoriasController extends Controller
     public function delete($id){
         try{
             $categoria = Categoria::findOrFail($id);
-            $subcategorias = DB::table('subcategorias')->where('categoria_id', $categoria->id)->get();
-            $categoria_products = DB::table('categoria_product')->where('categoria_id', $categoria->id)->get();
+            $subcategorias = Subcategoria::where('categoria_id', $categoria->id)->get();
+            $categoria_products = CategoriaProduct::where('categoria_id', $categoria->id)->get();
             $categoria_product = $categoria_products->first();
             try{
-                $products = DB::table('products')->where('id', $categoria_product->product_id)->get();
+                $products = Product::where('id', $categoria_product->product_id)->get();
             }
             catch(\Exception $e){
                 $products = null;

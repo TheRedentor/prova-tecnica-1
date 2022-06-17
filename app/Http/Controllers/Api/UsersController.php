@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
 {
     public function getUsers(){
         try{
-            $users = User::all();
+            $users = DB::table('users')->get();
             return response()->json(['status' => 1, 'users' => $users]);
         }
         catch (\Exception $e){

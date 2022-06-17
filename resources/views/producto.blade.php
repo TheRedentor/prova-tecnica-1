@@ -26,6 +26,9 @@
             @endif
         @endif
     @endforeach
+    @if ($product->stock <= 0)
+        <p style="color:red;">NO HAY STOCK</p>
+        @endif
     @can('admin')
     <a href="{{ route('pdf', [$product->id]) }}" class="btn btn-primary">Descargar PDF</a>
     @endcan

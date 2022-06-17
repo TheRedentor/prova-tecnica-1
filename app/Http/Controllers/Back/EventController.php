@@ -12,6 +12,9 @@ use App\Http\Requests\EventsRequest;
 
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\EventCreated;
+
 class EventController extends Controller
 {
     public function create(){
@@ -23,10 +26,12 @@ class EventController extends Controller
         $fecha = $request->input('fecha');
         $producto = $request->input('producto');
         $numero = $request->input('numero');
-        $productInfo = DB::table('products')->where('name', $producto)->first();
+        $productInfo = Product::where('name', $producto)->first();
         if(!isset($productInfo)){
             return redirect()->back()->withErrors(['msg' => 'No existe ese producto']);
         }
+        $productInfo->stock -= $numero;
+        $productInfo->save();
         $tarifas = DB::table('tarifas')->where('product_id', $productInfo->id)->get();
         foreach($tarifas as $tarifa){
             if($tarifa->product_id == $productInfo->id){
@@ -44,9 +49,10 @@ class EventController extends Controller
             'producto' => $producto,
             'numero' => $numero,
             'precio' => $precioTotal,
+            'user_id' => auth()->user()->id,
         ]);
 
-        return redirect()->action([CallendarController::class, 'index']);
+        return redirect()->route('evento-enviar', [$event->id]);
     }
 
     public function delete($id){
@@ -58,5 +64,10 @@ class EventController extends Controller
             return redirect()->back()->withErrors(['msg' => 'El evento no existe']);
         }
         return redirect()->action([CallendarController::class, 'index']);
+    }
+
+    public function sendEmail($id){
+        Mail::to(auth()->user()->email)->send(new EventCreated($id));
+        return new EventCreated($id);
     }
 }

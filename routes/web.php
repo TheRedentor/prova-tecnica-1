@@ -8,6 +8,9 @@ use App\Http\Controllers\Back\CallendarController;
 use App\Http\Controllers\Back\EventController;
 use App\Http\Controllers\Back\SubcategoriasController;
 use App\Http\Controllers\Back\TarifasController;
+use App\Http\Controllers\Back\GoogleController;
+use App\Mail\EventCreated;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +24,8 @@ use App\Http\Controllers\Back\TarifasController;
 */
 
 Route::middleware(['auth.back'])->group(function(){
+    Route::get('/', [CategoriasController::class,'index'])->name('categorias');
+
     Route::get('categorias', [CategoriasController::class,'index'])->name('categorias');
 
     Route::get('productos', [ProductosController::class,'index'])->name('productos');
@@ -44,6 +49,10 @@ Route::middleware(['auth.back'])->group(function(){
     Route::post('evento/calendario', [EventController::class, 'calendario'])->name('evento-calendario');
 
     Route::get('events/eliminar/{id}', [EventController::class,'delete'])->name('evento-eliminar');
+
+    Route::get('evento/enviar/{id}', [EventController::class,'sendEmail'])->name('evento-enviar');
+
+    Route::get('google-autocomplete', [GoogleController::class, 'index'])->name('mapa');
 });
 
 Route::group(['middleware' => 'can:admin'], function(){
@@ -85,8 +94,6 @@ Route::group(['middleware' => 'can:admin'], function(){
 
     Route::get('tarifas/eliminar/{id}', [TarifasController::class,'delete'])->name('tarifa-eliminar');
 });
-
-Route::get('/', [LoginController::class,'index'])->name('login');
 
 Route::get('login', [LoginController::class,'index'])->name('login');
 

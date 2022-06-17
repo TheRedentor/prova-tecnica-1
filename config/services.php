@@ -21,7 +21,7 @@ return [
     ],
 
     'postmark' => [
-        'token' => env('POSTMARK_TOKEN'),
+        'token' => env('078baaee-7dec-4354-a80d-61a021042dc0'),
     ],
 
     'ses' => [

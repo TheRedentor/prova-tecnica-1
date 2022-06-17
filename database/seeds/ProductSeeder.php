@@ -19,6 +19,7 @@ class ProductSeeder extends Seeder
         $product->description = "Manzana fresca";
         $product->image = "https://img.huffingtonpost.com/asset/5ef9ffab250000a502c28ec2.jpeg?ops=scalefit_720_noupscale";
         $product->subcategoria_id = 1;
+        $product->stock = 2000;
         $product->save();
     }
 }

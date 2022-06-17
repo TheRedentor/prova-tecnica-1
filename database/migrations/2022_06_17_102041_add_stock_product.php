@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddTokenUser extends Migration
+class AddStockProduct extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddTokenUser extends Migration
      */
     public function up()
     {
-        Schema::table('users', function(Blueprint $table){
-            $table->string('api_token')->nullable();
+        Schema::table('products', function(Blueprint $table){
+            $table->integer('stock')->nullable();
         });
     }
 

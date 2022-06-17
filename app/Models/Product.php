@@ -11,6 +11,7 @@ class Product extends Model
         'description',
         'image',
         'subcategoria_id',
+        'stock',
     ];
 
     public function categorias(){

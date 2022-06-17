@@ -64,6 +64,12 @@
                   Calendario
                 </a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('mapa') }}">
+                  <span data-feather="map"></span>
+                  Mapa
+                </a>
+              </li>
             </ul>
           </div>
         </nav>

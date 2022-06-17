@@ -41,4 +41,10 @@ class User extends Authenticatable
     public function isAdmin(){
         return $this->is_admin;
     }
+
+    /*
+    public function events(){
+        return $this->hasMany('App\Models\Event');
+    }
+    */
 }

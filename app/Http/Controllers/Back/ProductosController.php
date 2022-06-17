@@ -110,7 +110,7 @@ class ProductosController extends Controller
     public function update($id, EditProductsRequest $request){
         try{
             $product = Product::findOrFail($id);
-            $categoria_product = DB::table('categoria_product')->where('product_id', $product->id)->first();
+            $categoria_product = CategoriaProduct::where('product_id', $product->id)->first();
             $tarifa = DB::table('tarifas')->where('product_id', $product->id)->first();
             $categoria_name = $request->input('categoria');
             $categoria = DB::table('categorias')->where('name', $categoria_name)->first();
@@ -145,7 +145,7 @@ class ProductosController extends Controller
     public function delete($id){
         try{
             $product = Product::findOrFail($id);
-            $tarifas = DB::table('tarifas')->where('product_id', $product->id)->get();
+            $tarifas = Tarifa::where('product_id', $product->id)->get();
             foreach($tarifas as $tarifa){
                 $tarifa->delete();
             }
@@ -169,7 +169,7 @@ class ProductosController extends Controller
             $description = $product->description;
             $image = $product->image;
             $tarifas = DB::table('tarifas')->where('product_id', $product->id)->get();
-            $categoria_products = DB::table('categoria_product')->all();
+            $categoria_products = DB::table('categoria_product')->get();
             $categorias = DB::table('categorias')->get();
             $subcategorias = DB::table('subcategorias')->get();
         }

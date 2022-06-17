@@ -19,6 +19,7 @@ class CreateEventsTable extends Migration
             $table->string('producto');
             $table->integer('numero');
             $table->float('precio');
+            //$table->foreign('user_id')->references('id')->on('users')->nullable();
             $table->timestamps();
         });
     }
@@ -31,5 +32,11 @@ class CreateEventsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('events');
+        /*
+        Schema::dropIfExists('events', function(Blueprint $table) {
+            $table->dropForeign(['user_id']);
+            $table->dropColumn(['user_id']);
+        });
+        */
     }
 }

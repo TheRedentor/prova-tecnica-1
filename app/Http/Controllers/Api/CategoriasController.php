@@ -6,12 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Categoria;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class CategoriasController extends Controller
 {
     public function getCategorias(){
         try{
-            $categorias = Categoria::all();
+            $categorias = DB::table('categorias')->get();
             return response()->json(['status' => 1, 'categorias' => $categorias]);
         }
         catch (\Exception $e){

@@ -33,6 +33,9 @@
                     @endif
                 @endif
             @endforeach
+            @if ($product->stock <= 0)
+            <p style="color:red;">NO HAY STOCK</p>
+            @endif
             <a href="{{ route('producto', [$product->id]) }}" class="btn btn-primary">Ver producto</a>
             @can('admin')
             <a href="{{ route('producto-editar', [$product->id]) }}" class="btn btn-primary">Editar</a>
