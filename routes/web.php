@@ -9,6 +9,7 @@ use App\Http\Controllers\Back\EventController;
 use App\Http\Controllers\Back\SubcategoriasController;
 use App\Http\Controllers\Back\TarifasController;
 use App\Http\Controllers\Back\GoogleController;
+use App\Http\Controllers\Back\SitiosController;
 use App\Mail\EventCreated;
 use Illuminate\Support\Facades\Mail;
 
@@ -52,7 +53,13 @@ Route::middleware(['auth.back'])->group(function(){
 
     Route::get('evento/enviar/{id}', [EventController::class,'sendEmail'])->name('evento-enviar');
 
-    Route::get('google-autocomplete', [GoogleController::class, 'index'])->name('mapa');
+    Route::get('google-autocomplete/{id?}', [GoogleController::class, 'index'])->name('mapa');
+
+    Route::get('sitio/nuevo', [SitiosController::class, 'create'])->name('sitio-nuevo');
+
+    Route::post('sitio/creado', [SitiosController::class, 'store'])->name('sitio-creado');
+
+    Route::get('sitio/eliminar/{id}', [SitiosController::class, 'delete'])->name('sitio-eliminar');
 });
 
 Route::group(['middleware' => 'can:admin'], function(){

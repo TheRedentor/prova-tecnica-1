@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call([ProductSeeder::class]);
         $this->call([TarifaSeeder::class]);
         $this->call([CategoriaProductSeeder::class]);
+        $this->call([SitioSeeder::class]);
         
     }
 }
