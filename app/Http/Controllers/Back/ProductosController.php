@@ -77,7 +77,7 @@ class ProductosController extends Controller
         ]);
 
         //dd($name, $description);
-        return redirect()->action([ProductosController::class, 'index']);
+        return redirect()->route('productos');
     }
 
     public function edit($id){
@@ -139,7 +139,7 @@ class ProductosController extends Controller
         catch(\Exception $e){
             return redirect()->back()->withErrors(['msg' => 'Uno o varios campos no son correctos']);
         }
-        return redirect()->action([ProductosController::class, 'index']);
+        return redirect()->route('productos');
     }
 
     public function delete($id){
@@ -154,7 +154,7 @@ class ProductosController extends Controller
         catch(\Exception $e){
             return redirect()->back()->withErrors(['msg' => 'El producto no existe']);
         }
-        return redirect()->action([ProductosController::class, 'index']);
+        return redirect()->route('productos');
     }
 
     public function export(){

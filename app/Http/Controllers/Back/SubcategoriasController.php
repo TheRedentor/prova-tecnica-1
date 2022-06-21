@@ -40,7 +40,7 @@ class SubcategoriasController extends Controller
         }
 
         //dd($name, $description);
-        return redirect()->action([CategoriasController::class, 'index']);
+        return redirect()->route('categorias');
     }
 
     public function delete($id){
@@ -56,6 +56,6 @@ class SubcategoriasController extends Controller
         catch(\Exception $e){
             return redirect()->back()->withErrors(['msg' => 'La subcategoria no existe']);
         }
-        return redirect()->action([CategoriasController::class, 'index']);
+        return redirect()->route('categorias');
     }
 }

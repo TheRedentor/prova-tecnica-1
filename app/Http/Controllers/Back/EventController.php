@@ -63,7 +63,7 @@ class EventController extends Controller
         catch(\Exception $e){
             return redirect()->back()->withErrors(['msg' => 'El evento no existe']);
         }
-        return redirect()->action([CallendarController::class, 'index']);
+        return redirect()->route('calendario');
     }
 
     public function sendEmail($id){

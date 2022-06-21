@@ -38,7 +38,7 @@ class CategoriasController extends Controller
             return redirect()->back()->withErrors(['msg' => 'Uno o varios campos no son correctos']);
         }
         //dd($name, $description);
-        return redirect()->action([CategoriasController::class, 'index']);
+        return redirect()->route('categorias');
     }
 
     public function edit($id){
@@ -62,7 +62,7 @@ class CategoriasController extends Controller
         catch(\Exception $e){
             return redirect()->back()->withErrors(['msg' => 'Uno o varios campos no son correctos']);
         }
-        return redirect()->action([CategoriasController::class, 'index']);
+        return redirect()->route('categorias');
     }
 
     public function delete($id){
@@ -99,6 +99,6 @@ class CategoriasController extends Controller
         catch(\Exception $e){
             return redirect()->back()->withErrors(['msg' => 'La categoria no existe']);
         }
-        return redirect()->action([CategoriasController::class, 'index']);
+        return redirect()->route('categorias');
     }
 }

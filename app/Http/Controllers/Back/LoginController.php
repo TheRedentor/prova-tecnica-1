@@ -27,18 +27,18 @@ class LoginController extends Controller
 
         if(auth()->attempt(['email' => $request->input('email'), 'password' => $request->input('password'),], $remember)) {
             //dd($request->all());
-            return redirect()->intended(action([CategoriasController::class, 'index']));
+            return redirect()->intended(route('categorias'));
         }
         else {
             //dd($request->all());
-            return redirect()->action([LoginController::class, 'index'])->with('error_login', 'Email o contrasenya incorrecte');
+            return redirect()->route('login')->with('error_login', 'Email o contrasenya incorrecte');
         }
     }
 
     public function logout(){
         if(auth()->check()){
             auth()->logout();
-            return redirect()->action([LoginController::class, 'index']);
+            return redirect()->route('login');
         }
     }
 }
